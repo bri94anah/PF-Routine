@@ -3,62 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beginner Planet Fitness Routine</title>
+    <title>Workout Hub - Planet Fitness Routine</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
-        h1, h2 { color: #551A8B; }
-        hr { border: 0; height: 1px; background: #ddd; margin: 20px 0; }
-        ul { margin-bottom: 20px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b0c16;
+            color: #f1f1f5;
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #24163d, #141226);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .logo-title { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, #c77dff, #7b2cbf);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+        }
+        .status-badge {
+            background: rgba(46, 196, 182, 0.15);
+            color: #2ec4b6;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid rgba(46, 196, 182, 0.3);
+        }
+        .schedule-row {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            margin-bottom: 20px;
+        }
+        .day-pill {
+            background: #161729;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 10px 14px;
+            text-align: center;
+            min-width: 55px;
+            font-size: 13px;
+            color: #8c8fa3;
+        }
+        .day-pill.active {
+            background: #7b2cbf;
+            color: #fff;
+            border-color: #c77dff;
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+        }
+        .card {
+            background: #141526;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .badge-lifting {
+            display: inline-block;
+            background: rgba(123, 44, 191, 0.25);
+            color: #c77dff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(199, 125, 255, 0.3);
+        }
+        h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; color: #fff; }
+        .subtitle { font-size: 13px; color: #a5a9c0; margin-bottom: 16px; }
+        
+        .exercise-item {
+            background: #1c1d33;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .exercise-info h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+        .exercise-info p { font-size: 12px; color: #9a9dbd; }
+        
+        .mark-btn {
+            background: #10111f;
+            color: #c77dff;
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mark-btn:active { background: #7b2cbf; color: #fff; }
+
+        .tips-section { font-size: 13px; color: #a5a9c0; line-height: 1.5; }
+        .tips-section li { margin-bottom: 8px; margin-left: 18px; }
     </style>
 </head>
 <body>
 
-    <h1>Beginner Planet Fitness Machine Routine</h1>
-    <p>A simple, machine-only workout routine designed for 2 days a week, alternating your schedule every other week.</p>
+    <div class="header">
+        <div class="header-top">
+            <div class="logo-title">
+                <div class="logo-icon">🏋️‍♀️</div>
+                <div>
+                    <h1 style="font-size: 16px; font-weight: 700;">Workout Hub</h1>
+                    <p style="font-size: 11px; color: #a5a9c0;">Planet Fitness Routine</p>
+                </div>
+            </div>
+            <div class="status-badge">● Active</div>
+        </div>
+        <p style="font-size: 12px; color: #c77dff;">2 Days/Week • Alternating Schedule</p>
+    </div>
 
-    <hr>
+    <div class="schedule-row">
+        <div class="day-pill">Mon</div>
+        <div class="day-pill active">Tue</div>
+        <div class="day-pill active">Wed</div>
+        <div class="day-pill active">Thu</div>
+        <div class="day-pill">Fri</div>
+        <div class="day-pill">Sat</div>
+        <div class="day-pill">Sun</div>
+    </div>
 
-    <h2>📅 Schedule Rotation</h2>
-    <ul>
-        <li><strong>Week A (Odd Weeks):</strong> Tuesday & Wednesday Nights</li>
-        <li><strong>Week B (Even Weeks):</strong> Wednesday & Thursday Nights</li>
-    </ul>
+    <!-- WEEK A -->
+    <div class="card">
+        <span class="badge-lifting">Week A • Tue & Wed Nights</span>
+        <h2>Arms, Back, and Abs</h2>
+        <p class="subtitle">Machine-only selectorized focus (No bodyweight, no leg raises)</p>
+        
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Lat Pulldown Machine</h3>
+                <p>3 sets x 10–12 reps • Back Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
 
-    <hr>
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Seated Cable Row Machine</h3>
+                <p>3 sets x 10–12 reps • Back Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
 
-    <h2>🦾 Week A: Arms, Back, and Abs</h2>
-    <p><em>Used during Week A (Tuesday & Wednesday nights).</em></p>
-    <ol>
-        <li><strong>Lat Pulldown Machine</strong> (Back) - 3 sets x 10–12 reps</li>
-        <li><strong>Seated Cable Row Machine</strong> (Back) - 3 sets x 10–12 reps</li>
-        <li><strong>Machine Biceps Curl</strong> (Arms) - 3 sets x 10–12 reps</li>
-        <li><strong>Cable Triceps Pressdown</strong> (Arms) - 3 sets x 10–12 reps</li>
-        <li><strong>Abdominal Crunch Machine</strong> (Abs) - 3 sets x 12–15 reps</li>
-        <li><strong>Ab Coaster</strong> (Abs) - 3 sets x 12–15 reps</li>
-    </ol>
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Machine Biceps Curl</h3>
+                <p>3 sets x 10–12 reps • Arms Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
 
-    <hr>
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Cable Triceps Pressdown</h3>
+                <p>3 sets x 10–12 reps • Arms Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
 
-    <h2>🦵 Week B: Legs, Arms, and Chest</h2>
-    <p><em>Used during Week B (Wednesday & Thursday nights).</em></p>
-    <ol>
-        <li><strong>Leg Press Machine</strong> (Legs) - 3 sets x 10–12 reps</li>
-        <li><strong>Seated Leg Extension Machine</strong> (Legs) - 3 sets x 12–15 reps</li>
-        <li><strong>Seated Leg Curl Machine</strong> (Legs) - 3 sets x 12–15 reps</li>
-        <li><strong>Chest Press Machine</strong> (Chest) - 3 sets x 10–12 reps</li>
-        <li><strong>Pec Fly / Rear Delt Machine</strong> (Chest focus) - 3 sets x 12–15 reps</li>
-        <li><strong>Machine Biceps Curl</strong> (Arms) - 3 sets x 10–12 reps</li>
-        <li><strong>Cable Triceps Pressdown</strong> (Arms) - 3 sets x 12–15 reps</li>
-    </ol>
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Abdominal Crunch Machine</h3>
+                <p>3 sets x 12–15 reps • Abs Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
 
-    <hr>
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Ab Coaster</h3>
+                <p>3 sets x 12–15 reps • Abs Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
+    </div>
 
-    <h2>💡 Quick Tips for Beginners</h2>
-    <ul>
-        <li><strong>Rest Periods:</strong> Rest 60 to 90 seconds between each machine set.</li>
-        <li><strong>Weight Selection:</strong> Choose a weight where the last 2–3 reps feel challenging but maintainable.</li>
-        <li><strong>Progressive Overload:</strong> Once you complete max reps easily, slightly increase the weight next time.</li>
-    </ul>
+    <!-- WEEK B -->
+    <div class="card">
+        <span class="badge-lifting">Week B • Wed & Thu Nights</span>
+        <h2>Legs, Arms, and Chest</h2>
+        <p class="subtitle">Machine-only selectorized focus</p>
+        
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Leg Press Machine</h3>
+                <p>3 sets x 10–12 reps • Leg Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
+
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Seated Leg Extension Machine</h3>
+                <p>3 sets x 12–15 reps • Leg Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
+
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Seated Leg Curl Machine</h3>
+                <p>3 sets x 12–15 reps • Leg Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
+
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Chest Press Machine</h3>
+                <p>3 sets x 10–12 reps • Chest Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
+
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Pec Fly / Rear Delt Machine</h3>
+                <p>3 sets x 12–15 reps • Chest Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
+
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Machine Biceps Curl</h3>
+                <p>3 sets x 10–12 reps • Arms Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
+
+        <div class="exercise-item">
+            <div class="exercise-info">
+                <h3>Cable Triceps Pressdown</h3>
+                <p>3 sets x 10–12 reps • Arms Focus</p>
+            </div>
+            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+        </div>
+    </div>
+
+    <!-- TIPS -->
+    <div class="card">
+        <h2>💡 Quick Tips</h2>
+        <br>
+        <ul class="tips-section">
+            <li><strong>Rest Periods:</strong> 60 to 90 seconds between each set.</li>
+            <li><strong>Weight Selection:</strong> Choose a weight where the last 2-3 reps feel challenging.</li>
+            <li><strong>Progressive Overload:</strong> Increase weight slightly once you hit max reps comfortably.</li>
+        </ul>
+    </div>
 
 </body>
 </html>

@@ -93,25 +93,35 @@
             border-radius: 14px;
             padding: 14px;
             margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        }
+        .exercise-header {
+            margin-bottom: 10px;
         }
         .exercise-info h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
         .exercise-info p { font-size: 12px; color: #9a9dbd; }
         
-        .mark-btn {
+        .set-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .set-btn {
+            flex: 1;
             background: #10111f;
             color: #c77dff;
             border: 1px solid rgba(199, 125, 255, 0.3);
-            padding: 8px 14px;
-            border-radius: 10px;
+            padding: 8px 0;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            text-align: center;
         }
-        .mark-btn:active { background: #7b2cbf; color: #fff; }
+        .set-btn.done {
+            background: #7b2cbf;
+            color: #fff;
+            border-color: #c77dff;
+        }
 
         .tips-section { font-size: 13px; color: #a5a9c0; line-height: 1.5; }
         .tips-section li { margin-bottom: 8px; margin-left: 18px; }
@@ -147,117 +157,169 @@
     <div class="card">
         <span class="badge-lifting">Week A • Tue & Wed Nights</span>
         <h2>Arms, Back, and Abs</h2>
-        <p class="subtitle">Machine-only selectorized focus (No bodyweight, no leg raises)</p>
+        <p class="subtitle">Machine-only selectorized focus</p>
         
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Lat Pulldown Machine</h3>
                 <p>3 sets x 10–12 reps • Back Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Seated Cable Row Machine</h3>
                 <p>3 sets x 10–12 reps • Back Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Machine Biceps Curl</h3>
                 <p>3 sets x 10–12 reps • Arms Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Cable Triceps Pressdown</h3>
                 <p>3 sets x 10–12 reps • Arms Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Abdominal Crunch Machine</h3>
                 <p>3 sets x 12–15 reps • Abs Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
     </div>
 
     <!-- WEEK B -->
     <div class="card">
         <span class="badge-lifting">Week B • Wed & Thu Nights</span>
-        <h2>Legs, Glutes, Arms, and Chest</h2>
-        <p class="subtitle">Machine-only selectorized focus with leg presses and abductor/adductor work</p>
+        <h2>Legs, Glutes, and Chest</h2>
+        <p class="subtitle">Leg machines, free rack squats, and chest focus</p>
         
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
+                <h3>Free Rack Squat Machine</h3>
+                <p>3 sets x 10–12 reps • Quads & Glutes Focus</p>
+            </div>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
+        </div>
+
+        <div class="exercise-item">
+            <div class="exercise-header exercise-info">
                 <h3>Seated Leg Press Machine</h3>
                 <p>3 sets x 10–12 reps • Quads & General Legs</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Lying Leg Press Machine</h3>
                 <p>3 sets x 10–12 reps • Glutes & Quads Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
+                <h3>Seated Leg Extension Machine</h3>
+                <p>3 sets x 12–15 reps • Quads Focus</p>
+            </div>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
+        </div>
+
+        <div class="exercise-item">
+            <div class="exercise-header exercise-info">
                 <h3>Seated Abductor Machine</h3>
                 <p>3 sets x 12–15 reps • Outer Thighs & Glutes Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Seated Adductor Machine</h3>
                 <p>3 sets x 12–15 reps • Inner Thighs Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Chest Press Machine</h3>
                 <p>3 sets x 10–12 reps • Chest Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
+            </div>
         </div>
 
         <div class="exercise-item">
-            <div class="exercise-info">
+            <div class="exercise-header exercise-info">
                 <h3>Pec Fly / Rear Delt Machine</h3>
                 <p>3 sets x 12–15 reps • Chest Focus</p>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-info">
-                <h3>Machine Biceps Curl</h3>
-                <p>3 sets x 10–12 reps • Arms Focus</p>
+            <div class="set-buttons">
+                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
+                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
+                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
             </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-info">
-                <h3>Cable Triceps Pressdown</h3>
-                <p>3 sets x 10–12 reps • Arms Focus</p>
-            </div>
-            <button class="mark-btn" onclick="this.innerText='Done ✓'; this.style.background='#7b2cbf'; this.style.color='#fff';">Mark Done</button>
         </div>
     </div>
 
@@ -266,11 +328,22 @@
         <h2>💡 Quick Tips</h2>
         <br>
         <ul class="tips-section">
-            <li><strong>Leg Presses:</strong> Use the Seated Leg Press for balanced leg strength, and the Lying Leg Press to place higher focus on the glutes and hips.</li>
-            <li><strong>Rest Periods:</strong> 60 to 90 seconds between each set.</li>
+            <li><strong>Free Rack Squats:</strong> Set your stance comfortably, keep your chest up, and maintain controlled movement throughout.</li>
+            <li><strong>Rest Periods:</strong> Rest 60 to 90 seconds between each set.</li>
             <li><strong>Weight Selection:</strong> Choose a weight where the last 2-3 reps feel challenging.</li>
         </ul>
     </div>
 
+    <script>
+        function toggleSet(btn, num) {
+            if (btn.classList.contains('done')) {
+                btn.classList.remove('done');
+                btn.innerText = 'Set ' + num;
+            } else {
+                btn.classList.add('done');
+                btn.innerText = 'Set ' + num + ' ✓';
+            }
+        }
+    </script>
 </body>
 </html>

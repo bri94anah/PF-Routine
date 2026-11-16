@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout Hub - Planet Fitness Routine</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -11,7 +12,7 @@
             background-color: #0b0c16;
             color: #f1f1f5;
             padding: 16px;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
             max-width: 500px;
             margin: 0 auto;
         }
@@ -20,7 +21,7 @@
             border: 1px solid rgba(157, 78, 221, 0.3);
             border-radius: 20px;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
@@ -41,6 +42,34 @@
             font-weight: 600;
             border: 1px solid rgba(46, 196, 182, 0.3);
         }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            background: #141526;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: #8c8fa3;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-tab.active {
+            background: #7b2cbf;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(123, 44, 191, 0.4);
+        }
+
         .schedule-row {
             display: flex;
             gap: 8px;
@@ -95,36 +124,155 @@
             margin-bottom: 12px;
         }
         .exercise-header {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .exercise-info h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
         .exercise-info p { font-size: 12px; color: #9a9dbd; }
         
-        .set-buttons {
-            display: flex;
+        /* Grid for 3 sets with weight input */
+        .sets-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 8px;
         }
-        .set-btn {
-            flex: 1;
+        .set-box {
             background: #10111f;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 8px 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .set-btn {
+            width: 100%;
+            background: #18192c;
             color: #c77dff;
             border: 1px solid rgba(199, 125, 255, 0.3);
-            padding: 8px 0;
-            border-radius: 8px;
+            padding: 6px 0;
+            border-radius: 6px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            text-align: center;
         }
         .set-btn.done {
             background: #7b2cbf;
             color: #fff;
             border-color: #c77dff;
         }
+        .weight-input-wrap {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: #0b0c16;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            padding: 2px 6px;
+        }
+        .weight-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            outline: none;
+            padding: 4px 0;
+        }
+        .weight-unit {
+            font-size: 10px;
+            color: #8c8fa3;
+            margin-left: 2px;
+        }
 
-        .tips-section { font-size: 13px; color: #a5a9c0; line-height: 1.5; }
-        .tips-section li { margin-bottom: 8px; margin-left: 18px; }
+        /* Action Buttons */
+        .action-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #9d4edd, #7b2cbf);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(123, 44, 191, 0.4);
+        }
+        .btn-secondary {
+            width: 100%;
+            background: #1c1d33;
+            color: #a5a9c0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Progress View Styles */
+        .select-box {
+            width: 100%;
+            background: #1c1d33;
+            color: #fff;
+            border: 1px solid rgba(199, 125, 255, 0.4);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            outline: none;
+        }
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .history-item {
+            background: #1c1d33;
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+        .history-date { color: #a5a9c0; }
+        .history-weight { color: #2ec4b6; font-weight: 700; font-size: 14px; }
+
+        .hidden { display: none; }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2ec4b6;
+            color: #0b0c16;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .toast.show { opacity: 1; }
     </style>
 </head>
 <body>
@@ -143,219 +291,319 @@
         <p style="font-size: 12px; color: #c77dff;">2 Days/Week • Alternating Schedule</p>
     </div>
 
-    <div class="schedule-row">
-        <div class="day-pill">Mon</div>
-        <div class="day-pill active">Tue</div>
-        <div class="day-pill active">Wed</div>
-        <div class="day-pill active">Thu</div>
-        <div class="day-pill">Fri</div>
-        <div class="day-pill">Sat</div>
-        <div class="day-pill">Sun</div>
+    <!-- Page Switcher -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" id="tab-workout" onclick="switchView('workout')">Workout Tracker</button>
+        <button class="nav-tab" id="tab-progress" onclick="switchView('progress')">Weight Progress 📈</button>
     </div>
 
-    <!-- WEEK A -->
-    <div class="card">
-        <span class="badge-lifting">Week A • Tue & Wed Nights</span>
-        <h2>Upper Body & Abs</h2>
-        <p class="subtitle">Back, Arms, Chest, and Abs focus</p>
-        
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Lat Pulldown Machine</h3>
-                <p>3 sets x 10–12 reps • Back Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
+    <!-- VIEW 1: WORKOUT TRACKER -->
+    <div id="view-workout">
+        <div class="schedule-row">
+            <div class="day-pill">Mon</div>
+            <div class="day-pill active">Tue</div>
+            <div class="day-pill active">Wed</div>
+            <div class="day-pill active">Thu</div>
+            <div class="day-pill">Fri</div>
+            <div class="day-pill">Sat</div>
+            <div class="day-pill">Sun</div>
         </div>
 
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Seated Cable Row Machine</h3>
-                <p>3 sets x 10–12 reps • Back Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
+        <!-- WEEK A -->
+        <div class="card">
+            <span class="badge-lifting">Week A • Tue & Wed Nights</span>
+            <h2>Upper Body & Abs</h2>
+            <p class="subtitle">Check off each set and enter weight used</p>
+            <div id="week-a-list"></div>
         </div>
 
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Chest Press Machine</h3>
-                <p>3 sets x 10–12 reps • Chest Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
+        <!-- WEEK B -->
+        <div class="card">
+            <span class="badge-lifting">Week B • Wed & Thu Nights</span>
+            <h2>Lower Body & Glutes</h2>
+            <p class="subtitle">Check off each set and enter weight used</p>
+            <div id="week-b-list"></div>
         </div>
 
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Pec Fly / Rear Delt Machine</h3>
-                <p>3 sets x 12–15 reps • Chest Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Machine Biceps Curl</h3>
-                <p>3 sets x 10–12 reps • Arms Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Cable Triceps Pressdown</h3>
-                <p>3 sets x 10–12 reps • Arms Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Abdominal Crunch Machine</h3>
-                <p>3 sets x 12–15 reps • Abs Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
+        <div class="action-row">
+            <button class="btn-primary" onclick="saveWorkoutSession()">Save Completed Sets to Progress Chart</button>
+            <button class="btn-secondary" onclick="resetCheckmarks()">Reset Checkmarks for Next Workout</button>
         </div>
     </div>
 
-    <!-- WEEK B -->
-    <div class="card">
-        <span class="badge-lifting">Week B • Wed & Thu Nights</span>
-        <h2>Lower Body & Glutes</h2>
-        <p class="subtitle">Squats, leg presses, deadlifts, and glute focus</p>
-        
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Smith Machine Squat</h3>
-                <p>3 sets x 10–12 reps • Quads & Overall Legs</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
+    <!-- VIEW 2: PROGRESS CHART -->
+    <div id="view-progress" class="hidden">
+        <div class="card">
+            <span class="badge-lifting">Analytics</span>
+            <h2>Weight Progression</h2>
+            <p class="subtitle">Select an exercise to view your logged max weight over time</p>
+            
+            <select id="exercise-select" class="select-box" onchange="renderChart()"></select>
 
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Sumo Squat</h3>
-                <p>3 sets x 10–12 reps • Inner Thighs & Glutes Focus</p>
+            <div class="chart-container">
+                <canvas id="progressChart"></canvas>
             </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
 
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Deadlift (Cable / Machine Setup)</h3>
-                <p>3 sets x 10–12 reps • Posterior Chain & Glutes</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Seated Leg Press Machine</h3>
-                <p>3 sets x 10–12 reps • Quads & General Legs</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Lying Leg Press Machine</h3>
-                <p>3 sets x 10–12 reps • Glutes & Quads Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Seated Abductor Machine</h3>
-                <p>3 sets x 12–15 reps • Outer Thighs & Glutes Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
-        </div>
-
-        <div class="exercise-item">
-            <div class="exercise-header exercise-info">
-                <h3>Seated Adductor Machine</h3>
-                <p>3 sets x 12–15 reps • Inner Thighs Focus</p>
-            </div>
-            <div class="set-buttons">
-                <button class="set-btn" onclick="toggleSet(this, 1)">Set 1</button>
-                <button class="set-btn" onclick="toggleSet(this, 2)">Set 2</button>
-                <button class="set-btn" onclick="toggleSet(this, 3)">Set 3</button>
-            </div>
+            <h3 style="font-size: 15px; margin-bottom: 10px; color: #fff;">Logged History</h3>
+            <div id="history-list" class="history-list"></div>
         </div>
     </div>
 
-    <!-- TIPS -->
-    <div class="card">
-        <h2>💡 Quick Tips</h2>
-        <br>
-        <ul class="tips-section">
-            <li><strong>Squat Variations:</strong> Keep your chest up and core braced across both standard and sumo squat stances.</li>
-            <li><strong>Rest Periods:</strong> Rest 60 to 90 seconds between each set.</li>
-            <li><strong>Weight Selection:</strong> Choose a weight where the last 2-3 reps feel challenging.</li>
-        </ul>
-    </div>
+    <div id="toast" class="toast">Saved!</div>
 
     <script>
-        function toggleSet(btn, num) {
-            if (btn.classList.contains('done')) {
-                btn.classList.remove('done');
-                btn.innerText = 'Set ' + num;
-            } else {
+        const exercises = {
+            weekA: [
+                { id: "lat_pulldown", name: "Lat Pulldown Machine", meta: "3 sets x 10–12 reps • Back Focus" },
+                { id: "cable_row", name: "Seated Cable Row Machine", meta: "3 sets x 10–12 reps • Back Focus" },
+                { id: "chest_press", name: "Chest Press Machine", meta: "3 sets x 10–12 reps • Chest Focus" },
+                { id: "pec_fly", name: "Pec Fly / Rear Delt Machine", meta: "3 sets x 12–15 reps • Chest Focus" },
+                { id: "biceps_curl", name: "Machine Biceps Curl", meta: "3 sets x 10–12 reps • Arms Focus" },
+                { id: "triceps_pressdown", name: "Cable Triceps Pressdown", meta: "3 sets x 10–12 reps • Arms Focus" },
+                { id: "ab_crunch", name: "Abdominal Crunch Machine", meta: "3 sets x 12–15 reps • Abs Focus" },
+                { id: "torso_rotation", name: "Torso Rotation Machine", meta: "3 sets x 12–15 reps/side • Core Stability" }
+            ],
+            weekB: [
+                { id: "smith_squat", name: "Smith Machine Squat", meta: "3 sets x 10–12 reps • Quads & Overall Legs" },
+                { id: "sumo_squat", name: "Sumo Squat", meta: "3 sets x 10–12 reps • Inner Thighs & Glutes" },
+                { id: "deadlift", name: "Deadlift (Cable / Machine Setup)", meta: "3 sets x 10–12 reps • Posterior Chain & Glutes" },
+                { id: "seated_leg_press", name: "Seated Leg Press Machine", meta: "3 sets x 10–12 reps • Quads & General Legs" },
+                { id: "lying_leg_press", name: "Lying Leg Press Machine", meta: "3 sets x 10–12 reps • Glutes & Quads Focus" },
+                { id: "seated_abductor", name: "Seated Abductor Machine", meta: "3 sets x 12–15 reps • Outer Thighs & Glutes" },
+                { id: "seated_adductor", name: "Seated Adductor Machine", meta: "3 sets x 12–15 reps • Inner Thighs Focus" },
+                { id: "calf_raises", name: "Machine Calf Raises", meta: "3 sets x 12–15 reps • Lower Leg & Calves" }
+            ]
+        };
+
+        // Load saved current state and historical logs from localStorage
+        let currentState = JSON.parse(localStorage.getItem('pf_current_state')) || {};
+        let workoutHistory = JSON.parse(localStorage.getItem('pf_workout_history')) || {};
+        let chartInstance = null;
+
+        function initApp() {
+            renderExerciseList('week-a-list', exercises.weekA);
+            renderExerciseList('week-b-list', exercises.weekB);
+            populateDropdown();
+        }
+
+        function renderExerciseList(containerId, list) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            list.forEach(ex => {
+                const exState = currentState[ex.id] || {
+                    sets: [false, false, false],
+                    weights: ['', '', '']
+                };
+
+                const item = document.createElement('div');
+                item.className = 'exercise-item';
+                item.innerHTML = `
+                    <div class="exercise-header exercise-info">
+                        <h3>${ex.name}</h3>
+                        <p>${ex.meta}</p>
+                    </div>
+                    <div class="sets-grid">
+                        ${[0, 1, 2].map(i => `
+                            <div class="set-box">
+                                <button class="set-btn ${exState.sets[i] ? 'done' : ''}" 
+                                        onclick="toggleSet('${ex.id}', ${i}, this)">
+                                    ${exState.sets[i] ? `Set ${i+1} ✓` : `Set ${i+1}`}
+                                </button>
+                                <div class="weight-input-wrap">
+                                    <input type="number" inputmode="decimal" class="weight-input" 
+                                           placeholder="0" 
+                                           value="${exState.weights[i]}" 
+                                           onchange="updateWeight('${ex.id}', ${i}, this.value)">
+                                    <span class="weight-unit">lbs</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleSet(exId, setIndex, btn) {
+            if (!currentState[exId]) {
+                currentState[exId] = { sets: [false, false, false], weights: ['', '', ''] };
+            }
+            const isDone = !currentState[exId].sets[setIndex];
+            currentState[exId].sets[setIndex] = isDone;
+            
+            if (isDone) {
                 btn.classList.add('done');
-                btn.innerText = 'Set ' + num + ' ✓';
+                btn.innerText = `Set ${setIndex + 1} ✓`;
+            } else {
+                btn.classList.remove('done');
+                btn.innerText = `Set ${setIndex + 1}`;
+            }
+            localStorage.setItem('pf_current_state', JSON.stringify(currentState));
+        }
+
+        function updateWeight(exId, setIndex, val) {
+            if (!currentState[exId]) {
+                currentState[exId] = { sets: [false, false, false], weights: ['', '', ''] };
+            }
+            currentState[exId].weights[setIndex] = val;
+            localStorage.setItem('pf_current_state', JSON.stringify(currentState));
+        }
+
+        function saveWorkoutSession() {
+            const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            let savedCount = 0;
+
+            const allExercises = [...exercises.weekA, ...exercises.weekB];
+            allExercises.forEach(ex => {
+                const state = currentState[ex.id];
+                if (state) {
+                    // Find highest weight among checked sets (or any entered weight if checked)
+                    let maxWeight = 0;
+                    state.sets.forEach((checked, idx) => {
+                        const w = parseFloat(state.weights[idx]);
+                        if (checked && !isNaN(w) && w > maxWeight) {
+                            maxWeight = w;
+                        }
+                    });
+
+                    if (maxWeight > 0) {
+                        if (!workoutHistory[ex.id]) {
+                            workoutHistory[ex.id] = [];
+                        }
+                        // Check if already logged today; if so, update today's entry
+                        const existingIdx = workoutHistory[ex.id].findIndex(entry => entry.date === today);
+                        if (existingIdx > -1) {
+                            workoutHistory[ex.id][existingIdx].weight = maxWeight;
+                        } else {
+                            workoutHistory[ex.id].push({ date: today, weight: maxWeight });
+                        }
+                        savedCount++;
+                    }
+                }
+            });
+
+            if (savedCount > 0) {
+                localStorage.setItem('pf_workout_history', JSON.stringify(workoutHistory));
+                showToast(`Saved ${savedCount} exercise(s) to Progress Chart!`);
+            } else {
+                showToast('Check off a set & enter a weight first!');
             }
         }
+
+        function resetCheckmarks() {
+            Object.keys(currentState).forEach(exId => {
+                currentState[exId].sets = [false, false, false];
+            });
+            localStorage.setItem('pf_current_state', JSON.stringify(currentState));
+            renderExerciseList('week-a-list', exercises.weekA);
+            renderExerciseList('week-b-list', exercises.weekB);
+            showToast('Checkmarks cleared (weights kept for reference)');
+        }
+
+        function switchView(view) {
+            const workoutView = document.getElementById('view-workout');
+            const progressView = document.getElementById('view-progress');
+            const tabWorkout = document.getElementById('tab-workout');
+            const tabProgress = document.getElementById('tab-progress');
+
+            if (view === 'workout') {
+                workoutView.classList.remove('hidden');
+                progressView.classList.add('hidden');
+                tabWorkout.classList.add('active');
+                tabProgress.classList.remove('active');
+            } else {
+                workoutView.classList.add('hidden');
+                progressView.classList.remove('hidden');
+                tabWorkout.classList.remove('active');
+                tabProgress.classList.add('active');
+                renderChart();
+            }
+        }
+
+        function populateDropdown() {
+            const select = document.getElementById('exercise-select');
+            const allExercises = [...exercises.weekA, ...exercises.weekB];
+            allExercises.forEach(ex => {
+                const option = document.createElement('option');
+                option.value = ex.id;
+                option.textContent = ex.name;
+                select.appendChild(option);
+            });
+        }
+
+        function renderChart() {
+            const exId = document.getElementById('exercise-select').value;
+            const logs = workoutHistory[exId] || [];
+            const historyList = document.getElementById('history-list');
+
+            // Render text log list
+            if (logs.length === 0) {
+                historyList.innerHTML = `<p style="font-size: 13px; color: #8c8fa3;">No workouts logged for this exercise yet. Complete a set, enter a weight, and click "Save Completed Sets" on the Workout tab.</p>`;
+            } else {
+                historyList.innerHTML = logs.slice().reverse().map(entry => `
+                    <div class="history-item">
+                        <span class="history-date">${entry.date}</span>
+                        <span class="history-weight">${entry.weight} lbs</span>
+                    </div>
+                `).join('');
+            }
+
+            // Render Chart.js line graph
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            const labels = logs.length > 0 ? logs.map(l => l.date) : ['No Data'];
+            const dataPoints = logs.length > 0 ? logs.map(l => l.weight) : [0];
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Max Weight (lbs)',
+                        data: dataPoints,
+                        borderColor: '#c77dff',
+                        backgroundColor: 'rgba(199, 125, 255, 0.2)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#2ec4b6',
+                        pointBorderColor: '#fff',
+                        pointRadius: 5,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#8c8fa3', font: { size: 11 } },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#8c8fa3', font: { size: 11 } },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        initApp();
     </script>
 </body>
 </html>
